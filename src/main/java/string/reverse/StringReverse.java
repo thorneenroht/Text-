@@ -14,7 +14,7 @@ public class StringReverse {
 	}
 
 	private static void hardStringRevers(String s) {
-		// TODO Auto-generated method stub
+		//not actually hard but different
 		StringBuilder sbuild = new StringBuilder();
 		for(int i = s.length(); i > 0; i--){
 			sbuild.append(s.subSequence(i - 1, i));		
@@ -24,7 +24,7 @@ public class StringReverse {
 	}
 
 	private static void easyStringReverse(String s) {
-		// TODO Auto-generated method stub
+		
 		System.out.println(new StringBuilder(s).reverse());
 		
 	}
