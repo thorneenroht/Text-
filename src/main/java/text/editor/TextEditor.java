@@ -1,13 +1,14 @@
 package text.editor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+import java.awt.Component;
+import java.awt.Container;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+import text.editor.menu.EditorMenu;
 
 public class TextEditor extends JFrame{
 
@@ -21,6 +22,10 @@ public class TextEditor extends JFrame{
 	
 	private static final boolean VISIBLE = true;
 	
+	private static final int WIDTH = 500;
+	
+	private static final int HEIGHT = 500;
+	
 	public TextEditor(){
 		initGui();
 	}
@@ -29,47 +34,49 @@ public class TextEditor extends JFrame{
 		frame = new JFrame();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		setContentPane();
 		setMenuBar();
 		
 		
+		
+		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle(TITLE);
-		frame.pack();
+		//frame.pack();
 		frame.setVisible(VISIBLE);
 		
 	}
 	
-	private void setMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.add(createFileMenuItem());
-		menuBar.add(createEditMenuItem());
-		frame.setJMenuBar(menuBar);
-	}
-
-	private JMenu createEditMenuItem() {
-		JMenu edit = new JMenu("Edit");
-		edit.setMnemonic(KeyEvent.VK_E);
-		return edit;
-	}
-
-	private JMenu createFileMenuItem() {
-		JMenu file = new JMenu("File");
-		file.add(createOpenMenuItem());
+	public void setContentPane(){
+		frame.setContentPane(createContentPane());
 		
-		file.setMnemonic(KeyEvent.VK_F);
-		file.getAccessibleContext().setAccessibleDescription(
-		        "Contains 'Magic Editor' file options");
-		return file;
+	}
+	
+	private Container createContentPane() {
+		JPanel contentPane = new JPanel();
+		contentPane.setName("Content");
+		contentPane.setBorder(BorderFactory.createEmptyBorder());
+		contentPane.add(createTextArea());
+		
+	
+		return contentPane;
 	}
 
-	private JMenuItem createOpenMenuItem() {
-		JMenuItem open = new JMenuItem("Open File");
-		open.setMnemonic(KeyEvent.VK_O);
-		open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.ALT_MASK));
-		open.getAccessibleContext().setAccessibleDescription(
-		        "This opens a file.");
-		return open;
+	private Component createTextArea() {
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(true);
+		textArea.setText("Edit this");
+		textArea.setBounds(50,50,150,150);
+		textArea.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+		return textArea;
 	}
+
+	private void setMenuBar() {
+		EditorMenu em = new EditorMenu();
+		frame.setJMenuBar(em.createMenuBar());
+	}
+
+	
 
 	public JFrame getFrame(){
 		return frame;
