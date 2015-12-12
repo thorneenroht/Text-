@@ -6,9 +6,6 @@ import org.apache.commons.lang3.StringUtils;
 
 public class PigLatin {
 
-	public static String S = "PigLatin";
-	public static String S2 = "ikea";
-	
 	public static ArrayList<String> vowels = new ArrayList<String>();
 	static{
 		
@@ -20,14 +17,7 @@ public class PigLatin {
 		
 	}
 	
-	
-	public static void main(String[] args){
-		pigLatin(S);
-		pigLatin(S2);
-		pigLatin("  ");
-	}
-
-	private static void pigLatin(String s) {
+	public String void pigLatin(String s) {
 		String suffix = "ay";
 		if(StringUtils.isNotBlank(s)){
 		
@@ -35,15 +25,12 @@ public class PigLatin {
 				if(!vowels.contains(s.substring(i, i + 1))){
 					String sub = s.substring(i+1);
 					String first = s.substring(0, i+1);
-					System.out.println(sub+"-"+first+suffix);
-					break;
+					return sub+"-"+first+suffix;
+				
 				}
 			}
-		}else{
-			System.out.println("ay??...It's null!");
 		}
-		
-		
+		return null;
 	}
 	
 }
