@@ -17,7 +17,7 @@ public class PigLatin {
 		
 	}
 	
-	public String void pigLatin(String s) {
+	public String pigLatin(String s) {
 		String suffix = "ay";
 		if(StringUtils.isNotBlank(s)){
 		
