@@ -1,4 +1,4 @@
-package text.editor.menu;
+package text.editor.menu.actionListener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

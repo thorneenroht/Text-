@@ -10,6 +10,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
+import text.editor.menu.actionListener.NewFileActionListener;
+
 public class EditorMenu {
 	
 	public EditorMenu() {}
