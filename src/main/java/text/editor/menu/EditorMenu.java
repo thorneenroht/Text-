@@ -1,8 +1,10 @@
 package text.editor.menu;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JDialog;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -29,9 +31,12 @@ public class EditorMenu {
 		JMenu file = new JMenu("File");
 		file.add(createOpenMenuItem());
 		
+		
+		
+		
 		file.setMnemonic(KeyEvent.VK_F);
 		file.getAccessibleContext().setAccessibleDescription(
-		        "Contains 'Magic Editor' file options");
+		        "Contains 'Magic Editor' file options");		
 		return file;
 	}
 
@@ -41,6 +46,8 @@ public class EditorMenu {
 		open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.ALT_MASK));
 		open.getAccessibleContext().setAccessibleDescription(
 		        "This opens a file.");
+		
+		open.addActionListener(new NewFileActionListener());
 		return open;
 	}
 

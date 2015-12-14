@@ -36,9 +36,7 @@ public class TextEditor extends JFrame{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setContentPane();
 		setMenuBar();
-		
-		
-		
+				
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle(TITLE);
 		//frame.pack();
@@ -57,7 +55,6 @@ public class TextEditor extends JFrame{
 		contentPane.setBorder(BorderFactory.createEmptyBorder());
 		contentPane.add(createTextArea());
 		
-	
 		return contentPane;
 	}
 
@@ -75,8 +72,6 @@ public class TextEditor extends JFrame{
 		EditorMenu em = new EditorMenu();
 		frame.setJMenuBar(em.createMenuBar());
 	}
-
-	
 
 	public JFrame getFrame(){
 		return frame;
