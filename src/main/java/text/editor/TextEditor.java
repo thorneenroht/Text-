@@ -35,14 +35,10 @@ public class TextEditor extends JFrame implements Runnable{
 
 	private void initGui() {
 		frame = new JFrame();
-		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		setMenuBar();
-				
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle(TITLE);
-		//frame.pack();
 		frame.setVisible(VISIBLE);
 		
 	}

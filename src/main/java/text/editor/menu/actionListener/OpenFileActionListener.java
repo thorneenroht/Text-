@@ -16,48 +16,50 @@ public class OpenFileActionListener implements ActionListener {
 
 	private JFrame frame;
 	
-	public OpenFileActionListener(){}
-	
-	public OpenFileActionListener(JFrame frame) {
+	private File file;
+
+	public OpenFileActionListener() {
+	}
+
+	public OpenFileActionListener(JFrame frame, File file) {
 		this.frame = frame;
+		this.file = file;
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("actionPerformed");
+		System.out.println("Open actionPerformed");
 		final JFileChooser fc = new JFileChooser("/");
 		JEditorPane editorpane = new JEditorPane();
-	        int returnVal = fc.showOpenDialog(new JDialog());
+		int returnVal = fc.showOpenDialog(new JDialog());
 
-	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            File filename = fc.getSelectedFile();
-	            if (filename != null)
-	            {
-	                try
-	                {
-	                	System.out.println(filename.toURL());
-	                    editorpane.setPage(filename.toURL());
-	                    editorpane.setVisible(true);
-	                    
-	                }
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			 file = fc.getSelectedFile();
+			if (file != null) {
+				try {
+					editorpane.setPage(file.toURL());
+					editorpane.setVisible(true);
 
-	                catch (IOException ex)
-	                {
-	                    System.err.println("Attempted to read a bad file " + filename );
-	                    ex.printStackTrace();
-	                }
-	             }
+				}
 
-	            else
-	            {
-	                System.err.println("Couldn't find file");
-	            }
-	            JScrollPane editorScrollPane = new JScrollPane(editorpane);
-	            editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-	        editorScrollPane.setPreferredSize(new Dimension(250, 145));
-	        editorScrollPane.setMinimumSize(new Dimension(10, 10));
-	      frame.getContentPane().add(editorScrollPane);
-	        } 
-	        
+				catch (IOException ex) {
+					System.err.println("Attempted to read a bad file " + file);
+					ex.printStackTrace();
+				}
+			}
+
+			else {
+				System.err.println("Couldn't find file");
+			}
+			JScrollPane editorScrollPane = new JScrollPane(editorpane);
+			editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			editorScrollPane.setPreferredSize(new Dimension(250, 145));
+			editorScrollPane.setMinimumSize(new Dimension(10, 10));
+			frame.getContentPane().add(editorScrollPane);
+			frame.revalidate();
+		}else if (returnVal == JFileChooser.CANCEL_OPTION){
+			System.out.println("User cancelled open file.");
+		}
+
 	}
 
 }
