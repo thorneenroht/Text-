@@ -10,7 +10,7 @@ import javax.swing.JTextArea;
 
 import text.editor.menu.EditorMenu;
 
-public class TextEditor extends JFrame{
+public class TextEditor extends JFrame implements Runnable{
 
 	private JFrame frame;
 	/**
@@ -22,19 +22,22 @@ public class TextEditor extends JFrame{
 	
 	private static final boolean VISIBLE = true;
 	
-	private static final int WIDTH = 500;
+	private static final int WIDTH = 800;
 	
-	private static final int HEIGHT = 500;
+	private static final int HEIGHT = 800;
 	
-	public TextEditor(){
+	public TextEditor(){}
+	
+	public void run() {
 		initGui();
+		
 	}
 
 	private void initGui() {
 		frame = new JFrame();
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setContentPane();
+		
 		setMenuBar();
 				
 		frame.setSize(WIDTH, HEIGHT);
@@ -43,39 +46,17 @@ public class TextEditor extends JFrame{
 		frame.setVisible(VISIBLE);
 		
 	}
-	
-	public void setContentPane(){
-		frame.setContentPane(createContentPane());
 		
-	}
-	
-	private Container createContentPane() {
-		JPanel contentPane = new JPanel();
-		contentPane.setName("Content");
-		contentPane.setBorder(BorderFactory.createEmptyBorder());
-		contentPane.add(createTextArea());
-		
-		return contentPane;
-	}
-
-	private Component createTextArea() {
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(true);
-		textArea.setText("Edit this");
-		textArea.setBounds(50,50,150,150);
-		textArea.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
-		return textArea;
-	}
-
 	private void setMenuBar() {
-		EditorMenu em = new EditorMenu();
+		EditorMenu em = new EditorMenu(frame);
 		frame.setJMenuBar(em.createMenuBar());
 	}
 
 	public JFrame getFrame(){
 		return frame;
 	}
+
+	
 
 	
 }

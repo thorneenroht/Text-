@@ -5,16 +5,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-import text.editor.menu.actionListener.NewFileActionListener;
+import text.editor.menu.actionListener.OpenFileActionListener;
 
 public class EditorMenu {
+	private JFrame frame;
 	
 	public EditorMenu() {}
+
+	public EditorMenu(JFrame frame) {
+		this.frame = frame;
+	}
 
 	public JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
@@ -48,8 +54,8 @@ public class EditorMenu {
 		open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.ALT_MASK));
 		open.getAccessibleContext().setAccessibleDescription(
 		        "This opens a file.");
-		
-		open.addActionListener(new NewFileActionListener());
+		OpenFileActionListener actionListener = new OpenFileActionListener(frame);
+		open.addActionListener(actionListener);
 		return open;
 	}
 
