@@ -1,18 +1,17 @@
 package text.editor;
 
-import java.awt.Component;
-import java.awt.Container;
-
-import javax.swing.BorderFactory;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 
 import text.editor.menu.EditorMenu;
 
 public class TextEditor extends JFrame implements Runnable{
 
 	private JFrame frame;
+	private JTabbedPane tab;
 	/**
 	 * 
 	 */
@@ -36,15 +35,25 @@ public class TextEditor extends JFrame implements Runnable{
 	private void initGui() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setContentPane();
 		setMenuBar();
+		
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setTitle(TITLE);
 		frame.setVisible(VISIBLE);
 		
 	}
 		
+	private void setContentPane() {
+		tab = new JTabbedPane();
+		
+		tab.addTab("New Tab",new JScrollPane(new JEditorPane()));
+		frame.setContentPane(tab);
+		
+	}
+
 	private void setMenuBar() {
-		EditorMenu em = new EditorMenu(frame);
+		EditorMenu em = new EditorMenu(frame, tab);
 		frame.setJMenuBar(em.createMenuBar());
 	}
 
