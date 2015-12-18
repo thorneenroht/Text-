@@ -28,7 +28,7 @@ public class EditorMenu {
 	private JFrame frame;
 	private File file;
 	private JTabbedPane tab;
-
+	private int newTabCounter = 1;
 	public EditorMenu() {
 	}
 
@@ -56,9 +56,11 @@ public class EditorMenu {
 
 	private JMenu createFileMenuItem() {
 		JMenu file = new JMenu("File");
+		file.add(createNewFileItem());
 		file.add(createOpenMenuItem());
 		file.add(createSaveMenuItem());
-		file.add(createQuickFileSave());
+		
+		//file.add(createQuickFileSave());
 		file.addSeparator();
 		file.add(createExitMenuItem());
 		file.setMnemonic(KeyEvent.VK_F);
@@ -66,6 +68,26 @@ public class EditorMenu {
 		return file;
 	}
 
+	private JMenuItem createNewFileItem() {
+		JMenuItem newFile = new JMenuItem("New File");
+		newFile.setMnemonic(KeyEvent.VK_N);
+		newFile.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+		newFile.getAccessibleContext().setAccessibleDescription("This opens a new file.");
+
+		newFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openNewFile();
+			}
+		});
+		return newFile;
+	}
+
+	
+	private void openNewFile() {
+		tab.addTab("New Tab"+newTabCounter++,new JScrollPane(new JEditorPane()));
+		
+	}
+	
 	private JMenuItem createQuickFileSave() {
 		JMenuItem save = new JMenuItem("Quick Save");
 		save.setMnemonic(KeyEvent.VK_S);
@@ -85,7 +107,9 @@ public class EditorMenu {
 		try {
 			JEditorPane nest = getJEditorPaneFromTab();
 			URL url = nest.getPage();
-			if(url != null){
+			Document doc = nest.getDocument();
+			if(doc != null){
+				
 				out = new BufferedWriter(new FileWriter(url.getFile()));
 				out.write(nest.getText());
 			}else{
@@ -138,6 +162,12 @@ public class EditorMenu {
 					out = new BufferedWriter(new FileWriter(fc.getSelectedFile().getPath()));
 					JEditorPane nest = getJEditorPaneFromTab();
 					out.write(nest.getText());
+					if(nest != null){
+						nest.setPage(file.toURL());
+						Document doc = nest.getDocument();
+						   doc.putProperty(Document.StreamDescriptionProperty, null);
+						 
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -173,6 +203,7 @@ public class EditorMenu {
 	private JEditorPane getJEditorPaneFromTab() {
 		JScrollPane pane = (JScrollPane) tab.getComponentAt(tab.getSelectedIndex());
 		JEditorPane nest = (JEditorPane) pane.getViewport().getView();
+		frame.revalidate();
 		return nest;
 	}
 
