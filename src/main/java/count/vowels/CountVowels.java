@@ -33,6 +33,7 @@ public class CountVowels {
 				}
 				
 			}
+			return map;
 		}
 		return null;
 	}
